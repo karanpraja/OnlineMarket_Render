@@ -196,7 +196,8 @@ const stripe = require("stripe")(
 );
 server.post("/create-payment-intent", async (req, res) => {
   console.log({req: req.body})
-  const HOST=process.env.HOST||"http://localhost:3000"
+  const HOST=process.env.HOST
+  console.log({HOST:HOST})
   const {totalAmount,id,quantity}=req.body
   const product = await stripe.products.create({
     name: `Your order id is ${id}`,
