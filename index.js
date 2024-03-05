@@ -222,8 +222,8 @@ console.log({Host:process.env.HOST})
     billing_address_collection: 'required', // Prompt the customer to provide their billing address
      
     mode: 'payment',
-    success_url: `${process.env.HOST}/checkorder/${id}`,
-    cancel_url: `${process.env.HOST}/errorpage`,
+    success_url: `${HOST}/checkorder/${id}`,
+    cancel_url: `${HOST}/errorpage`,
     metadata:{
       orderId:id
     }
