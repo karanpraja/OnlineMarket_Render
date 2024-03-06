@@ -1,5 +1,5 @@
 {
-    "devCommand": "dev",
+    "devCommand": "npm run dev",
     "builds": [
       {
         "src": "/(.*)",
