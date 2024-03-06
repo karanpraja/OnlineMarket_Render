@@ -73,7 +73,7 @@ server.post('/webhook', express.raw({type: 'application/json'}), (request, respo
   response.send();
 });
     // exports.SecretKey='Karan@1234'
-server.use(express.static(path.resolve(__dirname,'build')))
+// server.use(express.static(path.resolve(__dirname,'build')))
 server.use(cookieParser())
 server.use(session({
   secret: process.env.SECRET,
