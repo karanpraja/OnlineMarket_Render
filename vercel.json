@@ -1,4 +1,5 @@
 {
+    "devCommand": "dev",
     "builds": [
       {
         "src": "/(.*)",
