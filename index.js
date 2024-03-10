@@ -81,7 +81,7 @@ server.use(session({
 }));
 // server.use(csrf());
 const corsConfig={
-  origin: process.env.CLIENT_HOST,
+origin: [process.env.CLIENT_HOST,"*"],
   credentials:true,
   methods:[" GET"," POST", "PUT"," DELETE"],
   headers:[" Content-Type"],
