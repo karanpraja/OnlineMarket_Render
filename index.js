@@ -84,7 +84,9 @@ server.use(session({
 // server.use(csrf());
 server.use(passport.authenticate('session'));
 server.use(cors({
-  origin: '*',
+  origin: ['*','http://localhost:3000'],
+  credentials:true,
+  'Access-Control-Allow-Credentials':true,
     exposedHeaders: ['X-Total-Count'],
 }))
 server.use(express.json())//to parse a req body
