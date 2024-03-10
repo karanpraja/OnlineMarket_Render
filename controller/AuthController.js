@@ -52,7 +52,11 @@ exports.loginUser = async (req, res) => {
 const user=req.user
   console.log({loginUser:req.user})
   // user.token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzQ5YTJiMTBkOGRkNTZhNDJlZGRiYSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzA3NTcyNzM0fQ.9iHoSZZkoV7BakCMRKkQCavLjsjrc1yEPfZwxGrV3dI"
-    res.cookie('jwt', user.token, { expires: new Date(Date.now() + 10800000), httpOnly: true }).status(201).json({id:user.id,role:user.role,token:user.token});
+
+     await res
+     .status(201)
+     .cookie('jwt', user.token, { expires: new Date(Date.now() + 10800000), httpOnly: true ,sameSite: "none",secure: true})
+     .json({id:user.id,role:user.role,token:user.token});
 
   // console.log(req.user)
 

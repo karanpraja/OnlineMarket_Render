@@ -11,7 +11,6 @@ const mongoose = require("mongoose");
 const session=require('express-session')
 const endpointSecret = process.env.ENDPOINT_SECRET;
 // const csrf=require('csurf')
-var SQLiteStore = require('connect-sqlite3')(session);
 const  JwtStrategy = require('passport-jwt').Strategy;
 const cookieParser = require("cookie-parser");
 const ProductRouter=require('./routes/ProductRoutes') 
@@ -79,16 +78,17 @@ server.use(session({
   secret: process.env.SECRET,
   resave: false, // don't save session if unmodified
   saveUninitialized: false, // don't create session until something stored
-  store: new SQLiteStore({ db: 'sessions.db', dir: './var/db' })
 }));
 // server.use(csrf());
-server.use(passport.authenticate('session'));
-server.use(cors({
-  origin: ['*','http://localhost:3000'],
+const corsConfig={
+  origin: 'http://localhost:3000',
   credentials:true,
-  'Access-Control-Allow-Credentials':true,
+  methods:[" GET"," POST", "PUT"," DELETE"],
+  headers:[" Content-Type"],
     exposedHeaders: ['X-Total-Count'],
-}))
+}
+server.use(passport.authenticate('session'));
+server.use(cors(corsConfig))
 server.use(express.json())//to parse a req body
 // server.use(express.raw({type: 'application/json'}))
 server.use('/products',
@@ -99,15 +99,8 @@ server.use('/orders',isAuth(),OrderRouter.router)
 server.use('/users',AuthRouter.router)
 server.use('/user',isAuth(),UserRouter.router)
 server.use('/cart',isAuth(),CartRouter.router)
-
-
 // server.use('/stripecheckout',StripeRouter.router)
-
-
 // console.log("passport")
-
-
-
 //pasport strategies
 passport.use('local',new LocalStrategy({ usernameField: 'email' }, async function(email, password, done) {
   console.log("Passport")
@@ -145,7 +138,6 @@ passport.use('local',new LocalStrategy({ usernameField: 'email' }, async functio
     return done(err)
   }
 }));
-
 //PASSPORT JWT
 passport.use('jwt',new JwtStrategy(opts, async function(jwt_payload, done) {
   console.log("JWT")
@@ -183,8 +175,6 @@ passport.serializeUser(function(user, cb) {
     return cb(null, { id: user.id,role:user.role});
   });
 });
-
-
 passport.deserializeUser(function(user, cb) {
   console.log("deserializeUser",user)
   process.nextTick(function() {
@@ -192,7 +182,6 @@ passport.deserializeUser(function(user, cb) {
 });
 });
 //Payment Intent
-
 const stripe = require("stripe")(
   process.env.STRIPE_SECRET_KEY
 );
@@ -245,6 +234,10 @@ async function main() {
   console.log("database connected!");
 }
 server.get("/", (req, res) => {
+  // res.header("Access-Control-Allow-Origin":" https://localhost:3000");
+  // res.header("Access-Control-Allow-Credentials": true);
+  // res.header("Access-Control-Allow-Methods":" GET, POST, PUT, DELETE");
+  // res.header("Access-Control-Allow-Headers":[" Content-Type, *"]);
   res.json({ status: "Server working properly" });
 });
 // server.post("/products",createProduct );
