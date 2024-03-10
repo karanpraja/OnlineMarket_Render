@@ -2,7 +2,6 @@
   "name": "onlinemarket-backend",
   "version": "1.0.0",
   "description": "",
-  "proxy":"https://localhost:3000",
   "main": "index.js",
   "engines": {
     "node": ">=14.20.1"
@@ -14,8 +13,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "connect-sqlite": "^0.0.1",
-    "connect-sqlite3": "^0.9.13",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
