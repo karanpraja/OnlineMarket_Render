@@ -3,7 +3,6 @@ const express = require("express");
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy  ;
 var crypto = require('crypto');
-var db = require('./db');
 const server = express();
 var jwt = require('jsonwebtoken');
 const cors=require('cors')
