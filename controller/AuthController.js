@@ -55,7 +55,10 @@ const user=req.user
 
      await res
      .status(201)
-     .cookie('jwt', user.token, { expires: new Date(Date.now() + 10800000), httpOnly: true ,sameSite: "none",secure: true})
+     .cookie('jwt', user.token, { expires: new Date(Date.now() + 10800000), httpOnly: true ,
+      sameSite: process.env.NODE_ENV === "Development" ? "lax" : "none",
+      secure: process.env.NODE_ENV === "Development" ? false : true
+    })
      .json({id:user.id,role:user.role,token:user.token});
 
   // console.log(req.user)
