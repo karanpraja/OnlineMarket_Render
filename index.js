@@ -80,10 +80,10 @@ server.use(session({
 }));
 // server.use(csrf());
 const corsConfig={
-origin: [process.env.CLIENT_HOST,"*"],
+origin: process.env.CLIENT_HOST,
   credentials:true,
-  methods:[" GET"," POST", "PUT"," DELETE"],
-  headers:[" Content-Type"],
+  // methods:[" GET"," POST", "PUT"," DELETE"],
+  // headers:[" Content-Type"],
     exposedHeaders: ['X-Total-Count'],
 }
 server.use(passport.authenticate('session'));
@@ -233,11 +233,7 @@ async function main() {
   console.log("database connected!");
 }
 server.get("/", (req, res) => {
-  // res.header("Access-Control-Allow-Origin":" https://localhost:3000");
-  // res.header("Access-Control-Allow-Credentials": true);
-  // res.header("Access-Control-Allow-Methods":" GET, POST, PUT, DELETE");
-  // res.header("Access-Control-Allow-Headers":[" Content-Type, *"]);
-  res.json({ status: "Server working properly" });
+res.json("server working")
 });
 // server.post("/products",createProduct );
 server.listen(PORT, () => {
