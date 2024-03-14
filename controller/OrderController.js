@@ -1,13 +1,13 @@
 const { OrderSchema } = require("../model/OrderModel")
 
 exports.OrderItemsByUser=async(req,res)=>{
-    console.log("OrderItemsByUser")
+    // console.log("OrderItemsByUser")
     const Order=new OrderSchema(req.body)
     try{
     // const response=await Order.getIndexes()
     const docs=await Order.save()
 
-    console.log(docs)
+    // console.log(docs)
 res.status(201).json(docs)
     }catch(error){
         console.log(error)

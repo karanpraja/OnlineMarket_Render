@@ -51,8 +51,9 @@ exports.updateCartItemById=async(req,res)=>{
     }
 }
 exports.resetCart=async(req,res)=>{
+    console.log("resetCart")
     const {id}=req.user
-    console.log(id)
+    console.log({userId:id})
     try{
         console.log("deleteAllItems")
         const updatedCart=await cartSchema.deleteMany({user:id})
